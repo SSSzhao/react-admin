@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '@/styles/App.scss'
+import { Suspense } from 'react'
+import { HashRouter, Routes, Route } from 'react-router-dom'
+import router from '@/router'
+import Layout from '@/layouts'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <HashRouter>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+          {
+            router.map(i => (<Route path={i.path} key={i.path} element={i.element} />))
+          }
+      </Routes>
+    </Suspense>
+  </HashRouter>
+)
 
-export default App;
+export default App
