@@ -3,6 +3,7 @@ import { Layout } from 'antd'
 
 import NavBar from './NavBar'
 import SideBar from './SideBar'
+import AppMain from './AppMain'
 
 const { Header, Content } = Layout
 
@@ -14,7 +15,9 @@ const MainLayout = () => {
         <Header className='header'>
           <NavBar />
         </Header>
-        <Content>Content</Content>
+        <Content>
+          <AppMain />
+        </Content>
       </Layout>
     </Layout>
   )

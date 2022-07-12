@@ -29,7 +29,11 @@ const items: MenuProps['items'] = [
   getItem('用户管理', '1', <AppstoreOutlined />)
 ]
 
-const SideBar = (props: any) => {
+interface Props {
+  collapsed: boolean;
+}
+
+const SideBar = (props: Props) => {
   const { collapsed } = props
 
   const onClick: MenuProps['onClick'] = e => {
@@ -42,7 +46,7 @@ const SideBar = (props: any) => {
         <Menu
           className='mt-10'
           onClick={onClick}
-          style={{ height: '100%', borderRight: 0 }}
+          style={{ borderRight: 0 }}
           defaultSelectedKeys={['1']}
           mode="inline"
           items={items}
