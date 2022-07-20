@@ -1,17 +1,25 @@
-import { PropsWithChildren } from 'react'
-import { useLocation, useNavigate, Navigate } from 'react-router-dom'
+import { PropsWithChildren, useEffect } from 'react'
+import { useLocation, Navigate } from 'react-router-dom'
 import { getToken } from '@/utils/token'
 import { whitePaths } from '@/router'
-import { getUserByToken } from '@/api/user'
+import { observer } from 'mobx-react'
+import userStore from '@/store/user'
 
-const RouterAuth = ({ children }: PropsWithChildren) => {
-  const token = getToken()
+let isExec = false
+const RouterAuth = (props: PropsWithChildren) => {
   const location = useLocation()
   const isWhite = whitePaths.includes(location.pathname)
-  // getUserByToken()
-  if (!token && !isWhite) return <Navigate to="/login" replace={true} />
+  if (!getToken() && !isWhite) return <Navigate to="/login" replace={true} />
 
-  return <div>{children}</div>
+  if (getToken() && !userStore.userInfo.id && !isExec) {
+    (async () => {
+      isExec = true
+      await userStore.getUserByToken()
+      isExec = false
+    })()
+  }
+
+  return <div>{userStore.userInfo.id || isWhite ? props.children : ''}</div>
 }
 
-export default RouterAuth
+export default observer(RouterAuth)

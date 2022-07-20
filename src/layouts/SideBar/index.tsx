@@ -1,9 +1,9 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { changeCollapsed } from '@/store/actions/app'
 import { AppstoreOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Menu, Layout } from 'antd'
+import { observer } from 'mobx-react'
+import appStore from '@/store/app'
 
 const { Sider } = Layout
 
@@ -29,22 +29,15 @@ const items: MenuProps['items'] = [
   getItem('用户管理', '1', <AppstoreOutlined />)
 ]
 
-interface Props {
-  collapsed: boolean;
-}
-
-const SideBar = (props: Props) => {
-  const { collapsed } = props
-
+const SideBar = () => {
   const onClick: MenuProps['onClick'] = e => {
     console.log('click ', e)
   }
 
   return (
-    <Sider className="sider" trigger={null} width={200} collapsible collapsed={collapsed}>
+    <Sider className="sider" trigger={null} width={200} collapsible collapsed={appStore.collapsed}>
       <div className='logo'></div>
         <Menu
-          className='mt-10'
           onClick={onClick}
           style={{ borderRight: 0 }}
           defaultSelectedKeys={['1']}
@@ -55,14 +48,4 @@ const SideBar = (props: Props) => {
   )
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    collapsed: state.app.collapsed
-  }
-}
-
-const mapDispatchToProps = {
-  changeCollapsed
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SideBar)
+export default observer(SideBar)

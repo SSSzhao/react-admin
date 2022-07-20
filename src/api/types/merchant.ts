@@ -6,12 +6,18 @@ export interface MerchantInfo {
   createTime: string;
   // 开启用户群体区分 0否 1是 未开启时，扫描任务码后产生的用户将进入普通用户群体，否则将进入客户用户群体
   enabledDistinguishUser: 0 | 1;
-  // 开启工号登录 0否1是
-  enabledJobIdLogin: 0 | 1;
-  // 开启手机号码登录 0否1是
-  enabledTelLogin: 0 | 1;
-  // 开启微信登录 0否1是
-  enabledWechatLogin: 0 | 1;
+  // 管理端开启工号登录 0否1是
+  adminEnabledJobIdLogin: 0 | 1;
+  // 管理端开启手机号码登录 0否1是
+  adminEnabledTelLogin: 0 | 1;
+  // 管理端开启微信登录 0否1是
+  adminEnabledWechatLogin: 0 | 1;
+  // 用户端开启工号登录 0否1是
+  clientEnabledJobIdLogin: 0 | 1;
+  // 用户端开启手机号码登录 0否1是
+  clientEnabledTelLogin: 0 | 1;
+  // 用户端开启微信登录 0否1是
+  clientEnabledWechatLogin: 0 | 1;
   // 商户ID
   id: number;
   // 商户名称
@@ -28,6 +34,24 @@ export interface MerchantInfo {
   wechatComponentAuthId: number | null;
   // 微信登录授权方式 0静默 1非静默
   wechatLoginScope: 0 | 1;
+  // 子商户列表
+  subMerchantList: SubMerchantInfo[];
+  // 其他配置
+  jsonConfig: string;
+}
+
+// 子商户信息
+export interface SubMerchantInfo {
+  // 子商户ID
+  id: number;
+  // 子商户名称
+  name: string;
+  // 所属商户id
+  merchantId: MerchantInfo['id'];
+  // 创建时间
+  createTime: string;
+  // 更新时间
+  updateTime: string;
 }
 
 // 第三方平台授权列表信息

@@ -10,6 +10,14 @@ module.exports = async function ({ env }) {
         '@': path.resolve(__dirname, './src')
       }
     },
+    style: {
+      postcssOption: {
+        plugins: [
+          require('tailwindcss'),
+          require('autoprefixer')
+        ]
+      }
+    },
     devServer: {
       open: false,
       proxy: {

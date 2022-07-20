@@ -1,8 +1,9 @@
 import type { IRequestResult, IRequestPageResult } from '@/api/types'
-import router from '@/router'
 import axios from 'axios'
+import { HashRouter } from 'react-router-dom'
 import { TOKEN_NAME, getToken } from '@/utils/token'
 import { message } from 'antd'
+import userStore from '@/store/user'
 
 const request = axios.create({
   headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -40,10 +41,8 @@ request.interceptors.response.use(
     } else {
       if (res.status === 401) {
         message.error(res.msg || '登录已过期')
-        // console.log(location.href)
-        // router.replace(loginUrl)
-        // const userStore = useUserStore()
-        // userStore.logout()
+        window.location.hash = '/login'
+        userStore.logout()
         return Promise.reject(res.msg)
       }
       // 失败

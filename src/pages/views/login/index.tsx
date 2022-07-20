@@ -4,6 +4,8 @@ import { Button, Form, Input } from 'antd'
 import { jobIdLogin, getTokenByAuthCode } from '@/api/user'
 import { setToken } from '@/utils/token'
 import { useNavigate } from 'react-router-dom'
+import { observer } from 'mobx-react'
+import userStore from '@/store/user'
 
 type JobIdLoginParams = Parameters<typeof jobIdLogin>[0]
 
@@ -14,11 +16,14 @@ const Login = () => {
   const onFinish = async (values: JobIdLoginParams) => {
     console.log('Success:', values)
     setLoading(true)
-    const { payload: { authCode } } = await jobIdLogin(values)
-    const { payload } = await getTokenByAuthCode(authCode)
-    setToken(payload.authorizationToken)
-    setLoading(false)
-    navigate('/', { replace: true })
+    try {
+      const { payload: { authCode } } = await jobIdLogin(values)
+      await userStore.getAuthInfo(authCode)
+      setLoading(false)
+      navigate('/', { replace: true })
+    } catch {
+      setLoading(false)
+    }
   }
 
   return (
@@ -54,4 +59,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default observer(Login)
