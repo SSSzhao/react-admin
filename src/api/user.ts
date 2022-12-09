@@ -2,6 +2,7 @@ import request from '@/utils/request'
 import type { IRequestResult } from './types'
 import type { MerchantInfo } from './types/merchant'
 import type { LoginParams, UserInfo } from '@/api/types/user'
+import type { AuthInfo, RoleInfo } from './types/role'
 
 // 根据授权码获取Token
 export function getTokenByAuthCode (authCode: string): Promise<IRequestResult<LoginParams>> {
@@ -20,4 +21,9 @@ export function jobIdLogin (data: {
   password: UserInfo['password'];
 }): Promise<IRequestResult<{ authCode: string }>> {
   return request.post('/client/login/jobIdLogin', { ...data, platformAppId: '0j5v9336' }, { loading: true, hideMsg: true })
+}
+
+// 获取用户权限列表
+export function getUserAuth (): Promise<IRequestResult<AuthInfo[]>> {
+  return request.get('/admin/userPermissions/getTreeByCurrentUser', { hideMsg: true })
 }

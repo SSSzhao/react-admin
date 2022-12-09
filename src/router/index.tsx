@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import { RouteObject } from 'react-router-dom'
 import { Spin } from 'antd'
 import Layout from '@/layouts'
+import routerList from './config'
 
 export const whitePaths = ['/login']
 
@@ -26,25 +27,12 @@ const router: IRouter[] = [
     key: 'Home',
     path: '/',
     element: <Layout />,
-    children: [
-      {
-        key: 'Index',
-        // 默认路由
-        index: true,
-        element: lazyLoad(lazy(() => import('@/pages/views/index'))),
-        meta: {
-          title: '首页'
-        }
-      },
-      {
-        key: 'User',
-        path: '/user',
-        element: lazyLoad(lazy(() => import('@/pages/views/user'))),
-        meta: {
-          title: '用户管理'
-        }
-      }
-    ]
+    children: routerList.map(i => ({
+      key: i.path,
+      path: i.path,
+      element: lazyLoad(lazy(() => import(i.key))),
+      meta: i.meta
+    }))
   },
   {
     path: '*',

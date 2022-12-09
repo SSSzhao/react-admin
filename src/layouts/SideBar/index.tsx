@@ -26,7 +26,8 @@ function getItem (
 }
 
 const items: MenuProps['items'] = [
-  getItem('用户管理', '1', <AppstoreOutlined />)
+  getItem('首页', '1', <AppstoreOutlined />),
+  getItem('用户管理', '2', <AppstoreOutlined />)
 ]
 
 const SideBar = () => {
