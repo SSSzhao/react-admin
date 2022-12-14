@@ -1,13 +1,14 @@
 import React, { lazy, Suspense } from 'react'
-import { RouteObject } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
 import { Spin } from 'antd'
-import Layout from '@/layouts'
-import routerList from './config'
+// import Layout from '@/layouts'
 
 export const whitePaths = ['/login']
 
-export interface IRouter extends RouteObject {
+export interface IRouter {
   key: string
+  path: string
+  element: React.ReactNode
   meta?: {
     title: string
   }
@@ -22,17 +23,6 @@ const router: IRouter[] = [
     meta: {
       title: '登录'
     }
-  },
-  {
-    key: 'Home',
-    path: '/',
-    element: <Layout />,
-    children: routerList.map(i => ({
-      key: i.path,
-      path: i.path,
-      element: lazyLoad(lazy(() => import(i.key))),
-      meta: i.meta
-    }))
   },
   {
     path: '*',

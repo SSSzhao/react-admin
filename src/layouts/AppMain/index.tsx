@@ -1,8 +1,13 @@
-import { Outlet } from 'react-router-dom'
-const AppMain = () => {
+import { PropsWithChildren } from 'react'
+import ColorPicker from '@/components/global/ColorPicker'
+
+const AppMain = ({ children }: PropsWithChildren) => {
   return (
-    <div>
-      <Outlet />
+    <div className='h-full p-5'>
+      <ColorPicker />
+      <div className='h-full bg-white shadow-xl'>
+        { children }
+      </div>
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import type { IRequestResult, IRequestPageResult } from '@/api/types'
 import axios from 'axios'
-import { HashRouter } from 'react-router-dom'
 import { TOKEN_NAME, getToken } from '@/utils/token'
 import { message } from 'antd'
 import userStore from '@/store/user'
@@ -41,7 +40,7 @@ request.interceptors.response.use(
     } else {
       if (res.status === 401) {
         message.error(res.msg || '登录已过期')
-        window.location.hash = '/login'
+        window.location.replace('/#/login')
         userStore.logout()
         return Promise.reject(res.msg)
       }

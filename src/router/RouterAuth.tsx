@@ -14,6 +14,7 @@ const RouterAuth = (props: PropsWithChildren) => {
   useEffect(() => {
     if (getToken() && !userStore.userInfo.id) {
       userStore.getUserByToken()
+      userStore.getUserAuthList()
     }
   }, [])
 

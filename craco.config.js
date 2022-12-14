@@ -1,10 +1,24 @@
 const path = require('path')
 const { readFile } = require('fs/promises')
+const CracoLessPlugin = require('craco-less')
+const styleResourcesLoader = require('style-resources-loader')
 
 module.exports = async function ({ env }) {
   const baseUrl = await getEnvConfig(env, 'REACT_APP_BASE_URL')
   const proxyUrl = await getEnvConfig(env, 'REACT_APP_PROXY_URL')
   return {
+    plugins: [
+      {
+        plugin: CracoLessPlugin,
+        options: {
+          lessLoaderOptions: {
+            lessOptions: {
+              javascriptEnabled: true
+            }
+          }
+        }
+      }
+    ],
     webpack: {
       alias: {
         '@': path.resolve(__dirname, './src')
