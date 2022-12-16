@@ -33,7 +33,12 @@ const App = () => {
     return [...list].filter(i => i.type === AuthTypeEnum.MENU).map(item => {
       const routePath = path + '/' + item.url
       const haveChild = item.children.filter(i => i.type === AuthTypeEnum.MENU).length
-      const Component = haveChild ? Outlet : getModule('.' + routePath).default || Error404
+      let Component = null
+      try {
+        Component = haveChild ? Outlet : getModule('.' + routePath).default || Error404
+      } catch {
+        Component = Error404
+      }
 
       return <Route path={routePath} key={routePath} element={<Component />}>
         {

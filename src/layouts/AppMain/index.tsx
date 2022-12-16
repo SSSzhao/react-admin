@@ -3,7 +3,7 @@ import ColorPicker from '@/components/global/ColorPicker'
 
 const AppMain = ({ children }: PropsWithChildren) => {
   return (
-    <div className='h-full p-5'>
+    <div className='relative h-full p-5'>
       <ColorPicker />
       <div className='h-full bg-white shadow-xl'>
         { children }

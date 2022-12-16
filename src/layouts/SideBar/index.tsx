@@ -56,7 +56,7 @@ const SideBar = () => {
 
   return (
     <Sider className="sider" trigger={null} width={200} collapsible collapsed={appStore.collapsed}>
-      <div className='logo'>logo</div>
+      <div className='logo'></div>
       <Scrollbar y>
         <Menu
           onClick={onClick}

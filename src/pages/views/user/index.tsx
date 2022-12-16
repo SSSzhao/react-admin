@@ -1,5 +1,7 @@
+import MainContent from '@/components/global/MainContent'
+
 export default () => {
   return (
-    <div>用户管理</div>
+    <MainContent>用户管理</MainContent>
   )
 }

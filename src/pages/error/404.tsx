@@ -1,13 +1,15 @@
 import { Button, Result } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Page404 = () => {
+  const location = useLocation()
   const navigate = useNavigate()
+
   return (
     <Result
       status="404"
       title="404"
-      subTitle="Sorry, the page you visited does not exist."
+      subTitle={`Sorry, ${location.pathname} is not found.`}
       extra={<Button type="primary" onClick={() => navigate('/', { replace: true })}>Back Home</Button>}
     />
   )

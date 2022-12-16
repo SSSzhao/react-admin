@@ -6,7 +6,7 @@ import zhCN from 'antd/lib/locale/zh_CN'
 import { ConfigProvider } from 'antd'
 
 import '@/styles/App.css'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom'
 import Login from '@/pages/views/login'
 import Error404 from '@/pages/error/404'
 
