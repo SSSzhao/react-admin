@@ -5,7 +5,7 @@
   .sider {
     position: relative;
     height: 100vh;
-    padding-top: @logo-height;
+    padding-top: @header-height;
     overflow: hidden;
     background: #fff;
     box-shadow: 0px 0px 13px 0px rgba(206, 211, 219, 0.9);
@@ -13,12 +13,15 @@
       position: absolute;
       top: 0;
       width: 100%;
-      height: @logo-height;
+      height: @header-height;
     }
   }
   .header {
     padding: 0 20px;
     background: #fff;
     box-shadow: 0 0 6px rgba(220, 226, 234, 0.8);
+  }
+  .main {
+    height: calc(100vh - @header-height);
   }
 }

@@ -56,12 +56,12 @@ const SideBar = () => {
 
   return (
     <Sider className="sider" trigger={null} width={200} collapsible collapsed={appStore.collapsed}>
-      <div className='logo'></div>
+      <div className='logo'>{location.pathname}</div>
       <Scrollbar y>
         <Menu
           onClick={onClick}
           style={{ borderRight: 0 }}
-          defaultSelectedKeys={[location.pathname]}
+          selectedKeys={[location.pathname]}
           mode="inline"
           items={items}
         />

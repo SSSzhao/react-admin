@@ -12,8 +12,12 @@ export interface UserInfo {
   jobId: string;
   // 所属商户ID
   merchantId: number;
-  // 所在商户名称
+  // 所属商户名称
   merchantName: number;
+  // 所属子商户ID
+  subMerchantId: number;
+  // 所属子商户名称
+  subMerchantName: number;
   // 昵称
   nickname: string;
   // 密码
@@ -24,6 +28,22 @@ export interface UserInfo {
   status: 0 | 1;
   // 手机号码
   tel: string;
+  /**
+   * 地市机构代码
+   */
+  cityCode: string;
+  /**
+   * 地市机构名称
+   */
+  cityName: string;
+  /**
+   * 县区机构代码
+   */
+  countyCode: string;
+  /**
+   * 县区机构名称
+   */
+  countyName: string;
 }
 
 // 登录返回信息

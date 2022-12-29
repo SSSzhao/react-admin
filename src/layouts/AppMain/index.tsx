@@ -1,13 +1,14 @@
 import { PropsWithChildren } from 'react'
 import ColorPicker from '@/components/global/ColorPicker'
+import Scrollbar from '@/components/global/Scrollbar'
 
 const AppMain = ({ children }: PropsWithChildren) => {
   return (
-    <div className='relative h-full p-5'>
+    <div className='main relative p-5'>
       <ColorPicker />
-      <div className='h-full bg-white shadow-xl'>
+      <Scrollbar y className='bg-white shadow-xl'>
         { children }
-      </div>
+      </Scrollbar>
     </div>
   )
 }

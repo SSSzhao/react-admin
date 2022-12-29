@@ -1,6 +1,6 @@
-import request from '@/utils/request'
+import request, { baseQueryByPage } from '@/utils/request'
 import type { IRequestResult } from './types'
-import type { MerchantInfo } from './types/merchant'
+import type { MerchantInfo, SubMerchantInfo } from './types/merchant'
 import type { LoginParams, UserInfo } from '@/api/types/user'
 import type { AuthInfo, RoleInfo } from './types/role'
 
@@ -26,4 +26,33 @@ export function jobIdLogin (data: {
 // 获取用户权限列表
 export function getUserAuth (): Promise<IRequestResult<AuthInfo[]>> {
   return request.get('/admin/userPermissions/getTreeByCurrentUser', { hideMsg: true })
+}
+
+// 分页查询用户信息
+export const getUserPageList = baseQueryByPage<
+  Partial<
+    {
+      merchantId: MerchantInfo['id'];
+      subMerchantId: SubMerchantInfo['id'];
+    } & Pick<
+      UserInfo,
+      'jobId' | 'nickname' | 'tel' | 'cityCode' | 'cityName' | 'countyCode' | 'countyName'
+    >
+  >,
+  UserInfo
+>('/admin/user/pageList')
+
+// 保存用户信息
+export function saveUser (data: UserInfo): Promise<IRequestResult> {
+  return request.post('/admin/user/save', data)
+}
+
+// 更新用户状态(现有状态取反)
+export function updateUserStatus (userId: UserInfo['id']): Promise<IRequestResult> {
+  return request.post('/admin/user/updateStatus', { userId })
+}
+
+// 删除用户信息
+export function deleteUser (userIdSet: UserInfo['id'][]): Promise<IRequestResult> {
+  return request.post('/admin/user/deleteByIds', { userIdSet })
 }

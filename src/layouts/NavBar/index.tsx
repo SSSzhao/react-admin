@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Icon, {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -14,15 +14,15 @@ import userStore from '@/store/user'
 
 const NavBar = () => {
   const { collapsed, changeCollapsed } = appStore
-  const location = useLocation()
+  const navigate = useNavigate()
 
   const icon = (): React.ForwardRefExoticComponent<any> => {
     return collapsed ? MenuUnfoldOutlined : MenuFoldOutlined
   }
 
   const logout = () => {
-    console.log(location)
-    // userStore.logout()
+    userStore.logout()
+    navigate('/login')
   }
 
   const items: MenuProps['items'] = [

@@ -1,19 +1,24 @@
 import { PropsWithChildren } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { PageHeader } from 'antd'
 
-type PropsType = PropsWithChildren
+type PropsType = PropsWithChildren & {
+  title?: string,
+  subTitle?: string
+}
 
 export default (props: PropsType) => {
   const location = useLocation()
-  console.log(location)
-  return <div>
+  const navigate = useNavigate()
+  const back = () => history.back()
+  return <>
     <PageHeader
-      className="site-page-header"
-      onBack={() => null}
-      title="Title"
-      subTitle="This is a subtitle"
+      onBack={back}
+      title={props.title}
+      subTitle={props.subTitle}
     />
-    { props.children }
-  </div>
+    <div className='px-5'>
+      { props.children }
+    </div>
+  </>
 }

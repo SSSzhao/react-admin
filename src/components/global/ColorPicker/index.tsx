@@ -44,7 +44,7 @@ export default () => {
     cancelText="取消"
     onConfirm={onConfirm}
   >
-    <div className='absolute top-10 right-0 shadow-lg w-10 h-10 bg-white flex items-center justify-center rounded-l-lg'>
+    <div className='absolute top-10 right-0 z-10 shadow-lg w-10 h-10 bg-white flex items-center justify-center rounded-l-lg'>
       <SettingOutlined style={{ fontSize: '16px' }} />
     </div>
   </Popconfirm>
