@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from 'react'
-import { Button, Form } from 'antd'
+import { Button, Form, Col } from 'antd'
 import { SearchOutlined, SyncOutlined } from '@ant-design/icons'
 import { debounce } from 'lodash'
 
 type PropsType = PropsWithChildren & {
   form: Array<{
-    name: string,
-    label: string,
+    name: string
+    label: string
     component: React.ReactNode
   }>
   value?: Record<string, any>
@@ -29,34 +29,35 @@ export default (props: PropsType) => {
     onFinish()
   }
 
-  return <Form
-    className='pt-2 pb-5'
-    form={form}
-    layout="inline"
-    onFinish={onFinish}
-    onFieldsChange={onFieldsChange}
-  >
-    {
-      props.form.map(i => (
-        <Form.Item
-          label={i.label}
-          name={i.name}
-          key={i.name}
-        >
-          { i.component }
+  return (
+    <Form
+      className="py-2"
+      form={form}
+      layout="inline"
+      onFinish={onFinish}
+      onFieldsChange={onFieldsChange}
+    >
+      {props.form.map(i => (
+        <Form.Item label={i.label} name={i.name} key={i.name} className="!mb-4">
+          {i.component}
         </Form.Item>
-      ))
-    }
+      ))}
 
-    <Form.Item>
-      <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-        查询
-      </Button>
-    </Form.Item>
-    <Form.Item>
-      <Button type="primary" ghost icon={<SyncOutlined />} onClick={resetFields}>
-        重置
-      </Button>
-    </Form.Item>
-  </Form>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+          查询
+        </Button>
+      </Form.Item>
+      <Form.Item>
+        <Button
+          type="primary"
+          ghost
+          icon={<SyncOutlined />}
+          onClick={resetFields}
+        >
+          重置
+        </Button>
+      </Form.Item>
+    </Form>
+  )
 }

@@ -4,20 +4,21 @@ import MainContent from '@/components/global/MainContent'
 import TableGroup from '@/components/global/TableGroup'
 import TableSearch from '@/components/global/TableSearch'
 import TableBtnGroup from '@/components/global/TableBtnGroup'
+import MerchantSelect from '@/components/global/MerchantSelect'
 import type { ColumnsType } from 'antd/es/table'
 import { Button, Input, Tag, Switch, Space, Popconfirm } from 'antd'
 import { getUserPageList, updateUserStatus, deleteUser } from '@/api/user'
 import type { UserInfo } from '@/api/types/user'
 import { green } from '@ant-design/colors'
 
-type GetUserPageListParams = Parameters<typeof getUserPageList>[0];
+type GetUserPageListParams = Parameters<typeof getUserPageList>[0]
 
 interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  key: string
+  name: string
+  age: number
+  address: string
+  tags: string[]
 }
 
 export default () => {
@@ -58,11 +59,7 @@ export default () => {
     {
       title: '所属群体',
       dataIndex: 'userGroup',
-      render: text => (
-        <Tag color="blue">
-          {['合伙人', '客户群体'][text]}
-        </Tag>
-      )
+      render: text => <Tag color="blue">{['合伙人', '客户群体'][text]}</Tag>
     },
     {
       title: '工号',
@@ -76,7 +73,13 @@ export default () => {
       title: '状态',
       dataIndex: 'status',
       render: (text, row) => (
-        <Switch defaultChecked={text === 1} checkedChildren="启用" unCheckedChildren="禁用" loading={stateLoading} onChange={() => userStatusChange(row as unknown as UserInfo)} />
+        <Switch
+          defaultChecked={text === 1}
+          checkedChildren="启用"
+          unCheckedChildren="禁用"
+          loading={stateLoading}
+          onChange={() => userStatusChange(row as unknown as UserInfo)}
+        />
       )
     },
     {
@@ -88,28 +91,80 @@ export default () => {
       dataIndex: '操作',
       render: (_, row) => {
         const rowData = row as unknown as UserInfo
-        return <Space size="middle">
-          <Popconfirm title="确定删除？" okType="danger" icon={<ExclamationCircleOutlined style={{ color: 'red' }} />} onConfirm={() => delUser([rowData.id])}>
-            <Button type="text" danger>删除</Button>
-          </Popconfirm>
-        </Space>
+        return (
+          <Space size="middle">
+            <Popconfirm
+              title="确定删除？"
+              okType="danger"
+              icon={<ExclamationCircleOutlined style={{ color: 'red' }} />}
+              onConfirm={() => delUser([rowData.id])}
+            >
+              <Button type="text" danger>
+                删除
+              </Button>
+            </Popconfirm>
+          </Space>
+        )
       }
     }
   ]
 
   const form = [
     {
+      name: 'merchantId',
+      label: '所属商户',
+      component: <MerchantSelect />
+    },
+    {
       name: 'jobId',
       label: '工号',
-      component: <Input placeholder="请输入工号" allowClear />
+      component: <Input placeholder="请输入" allowClear />
+    },
+    {
+      name: 'nickname',
+      label: '用户昵称',
+      component: <Input placeholder="请输入" allowClear />
+    },
+    {
+      name: 'tel',
+      label: '手机号码',
+      component: <Input placeholder="请输入" allowClear />
+    },
+    {
+      name: 'cityCode',
+      label: '地市机构代码',
+      component: <Input placeholder="请输入" allowClear />
+    },
+    {
+      name: 'cityName',
+      label: '地市机构名称',
+      component: <Input placeholder="请输入" allowClear />
+    },
+    {
+      name: 'countyCode',
+      label: '县区机构代码',
+      component: <Input placeholder="请输入" allowClear />
+    },
+    {
+      name: 'countyName',
+      label: '县区机构名称',
+      component: <Input placeholder="请输入" allowClear />
     }
   ]
 
   return (
     <MainContent title="用户管理">
-      <TableSearch form={form} onFinish={values => TableRef.current.loadData(values)}></TableSearch>
+      <TableSearch
+        form={form}
+        onFinish={values => TableRef.current.loadData(values)}
+      ></TableSearch>
       <TableBtnGroup>
-        <Button type="primary" style={{ background: green.primary, borderColor: green.primary }}>导入</Button>
+        <Button
+          type="primary"
+          style={{ background: green.primary, borderColor: green.primary }}
+        >
+          导入
+        </Button>
         <Button type="primary">新增</Button>
       </TableBtnGroup>
       <TableGroup ref={TableRef} api={getUserPageList} columns={columns} />
